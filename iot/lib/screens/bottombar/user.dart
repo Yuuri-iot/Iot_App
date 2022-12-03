@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iot/provider/user.dart';
+import 'package:iot/screens/bottombar/kakao/kakao_login.dart';
+import 'package:iot/screens/bottombar/user2.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk_user.dart';
+import 'package:iot/screens/bottombar/kakao/main_view_model.dart';
+import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+import 'package:provider/provider.dart';
 
 class User extends StatefulWidget {
   const User({super.key});
-
   @override
   State<User> createState() => _UserState();
 }
 
 class _UserState extends State<User> {
-  bool pressed1 = true;
-  bool pressed2 = false;
-  bool pressed3 = false;
-  bool pressed4 = false;
-  bool pressed5 = false;
+  @override
+  void initState() {
+    super.initState();
+    KakaoSdk.init(nativeAppKey: 'fa1ebc5906cb5174151d65be8a937486');
+  }
 
+  final viewModel = MainViewModel(KakaoLogin());
   @override
   Widget build(BuildContext context) {
+    var emphasis = Provider.of<Emphaisis>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: null,
@@ -42,214 +50,112 @@ class _UserState extends State<User> {
               ),
             ),
             SizedBox(
-              height: 25.h,
+              height: 80.h,
             ),
-            SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 19.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          pressed1 = true;
-                          pressed2 = false;
-                          pressed3 = false;
-                          pressed4 = false;
-                          pressed5 = false;
-                        });
-                      },
-                      child: Column(
+            Column(
+              children: [
+                Text(
+                  '너, 나, 우리',
+                  style: TextStyle(
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff18A6F5),
+                  ),
+                ),
+                Text(
+                  '모두가 함께 만들어가는',
+                  style: TextStyle(
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '깨끗한 세상',
+                  style: TextStyle(
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xff17C81E),
+                  ),
+                ),
+                SizedBox(
+                  height: 70.h,
+                ),
+                emphasis.login
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "상품권",
+                            emphasis.name,
                             style: TextStyle(
-                                fontSize: 17.sp,
+                                fontSize: 19.sp,
                                 fontWeight: FontWeight.w500,
-                                color: pressed1
-                                    ? Colors.black
-                                    : const Color(0xffB1B1B1)),
+                                color: Colors.black),
                           ),
                           SizedBox(
-                            height: 9.h,
+                            width: 10.w,
                           ),
-                          pressed1
-                              ? Container(
-                                  width: 61.w,
-                                  height: 2.h,
-                                  color: Colors.black,
-                                )
-                              : Container(
-                                  height: 2.h,
-                                  width: 61.w,
-                                )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          pressed1 = false;
-                          pressed2 = true;
-                          pressed3 = false;
-                          pressed4 = false;
-                          pressed5 = false;
-                        });
-                      },
-                      child: Column(
-                        children: [
                           Text(
-                            "편의점",
+                            "${emphasis.price}원",
                             style: TextStyle(
-                                fontSize: 17.sp,
+                                fontSize: 19.sp,
                                 fontWeight: FontWeight.w500,
-                                color: pressed2
-                                    ? Colors.black
-                                    : const Color(0xffB1B1B1)),
-                          ),
-                          SizedBox(
-                            height: 9.h,
-                          ),
-                          pressed2
-                              ? Container(
-                                  width: 61.w,
-                                  height: 2.h,
-                                  color: Colors.black,
-                                )
-                              : Container(
-                                  height: 2.h,
-                                  width: 61.w,
-                                )
+                                color: Colors.black),
+                          )
                         ],
+                      )
+                    : Container(
+                        width: 230.w,
+                        height: 60.h,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.yellow,
+                            onPrimary: Colors.black,
+                            textStyle: TextStyle(
+                              fontSize: 17.sp,
+                            ),
+                          ),
+                          onPressed: () async {
+                            await viewModel.login();
+                            var changing =
+                                // ignore: unnecessary_string_interpolations
+                                '${viewModel.user?.kakaoAccount?.profile?.nickname ?? ''}';
+                            if (changing != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Usert()));
+                              emphasis.inputName(
+                                  "${viewModel.user?.kakaoAccount?.profile?.nickname}");
+                              emphasis.inputPrice(0);
+                              emphasis.change();
+                            }
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 40.w,
+                                height: 40.h,
+                                child: Image.asset('images/images/kakao.png'),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              const Text('카카오톡으로 로그인'),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 15.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          pressed1 = false;
-                          pressed2 = false;
-                          pressed3 = true;
-                          pressed4 = false;
-                          pressed5 = false;
-                        });
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            "카페, 베이커리",
-                            style: TextStyle(
-                                fontSize: 17.sp,
-                                fontWeight: FontWeight.w500,
-                                color: pressed3
-                                    ? Colors.black
-                                    : const Color(0xffB1B1B1)),
-                          ),
-                          SizedBox(
-                            height: 9.h,
-                          ),
-                          pressed3
-                              ? Container(
-                                  width: 121.w,
-                                  height: 2.h,
-                                  color: Colors.black,
-                                )
-                              : Container(
-                                  height: 2.h,
-                                  width: 121.w,
-                                )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          pressed1 = false;
-                          pressed2 = false;
-                          pressed3 = false;
-                          pressed4 = true;
-                          pressed5 = false;
-                        });
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            "외식",
-                            style: TextStyle(
-                                fontSize: 17.sp,
-                                fontWeight: FontWeight.w500,
-                                color: pressed4
-                                    ? Colors.black
-                                    : const Color(0xffB1B1B1)),
-                          ),
-                          SizedBox(
-                            height: 9.h,
-                          ),
-                          pressed4
-                              ? Container(
-                                  width: 51.w,
-                                  height: 2.h,
-                                  color: Colors.black,
-                                )
-                              : Container(
-                                  height: 2.h,
-                                  width: 51.w,
-                                )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          pressed1 = false;
-                          pressed2 = false;
-                          pressed3 = false;
-                          pressed4 = false;
-                          pressed5 = true;
-                        });
-                      },
-                      child: Column(
-                        children: [
-                          Text(
-                            "문화생활",
-                            style: TextStyle(
-                                fontSize: 17.sp,
-                                fontWeight: FontWeight.w500,
-                                color: pressed5
-                                    ? Colors.black
-                                    : const Color(0xffB1B1B1)),
-                          ),
-                          SizedBox(
-                            height: 9.h,
-                          ),
-                          pressed5
-                              ? Container(
-                                  width: 91.w,
-                                  height: 2.h,
-                                  color: Colors.black,
-                                )
-                              : Container(
-                                  height: 2.h,
-                                  width: 91.w,
-                                )
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
+                SizedBox(
+                  height: 30.h,
+                ),
+                Container(
+                  width: 300.w,
+                  height: 300.h,
+                  child: Image.asset("images/images/nonearth.png"),
+                ),
+              ],
+            ),
           ],
         ),
       ),
