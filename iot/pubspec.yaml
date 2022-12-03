@@ -31,13 +31,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_joystick: ^0.0.2
-  image_picker: ^0.8.5+3
+  kakao_flutter_sdk: ^1.2.2
+  kakao_flutter_sdk_user: ^1.2.2
+  cupertino_icons: ^1.0.2
+  flutter_screenutil: ^5.6.0
   carousel_slider: ^4.1.1
-  custom_radio_grouped_button: ^2.1.2
+  salomon_bottom_bar: ^3.3.1
+  image_picker: ^0.8.5+3
   http: ^0.13.4
   fluttertoast: ^8.0.9
-  flutter_screenutil: ^5.5.3
   dropdown_button2: ^1.7.1
   flutter_image_slideshow: ^0.1.2
   carousel_indicator: ^1.0.6
@@ -51,11 +53,8 @@ dependencies:
   file_picker: ^5.2.2
   intl: ^0.17.0
   ntp: ^2.0.0
+  shared_preferences: ^2.0.15
   flutter_native_splash: ^2.2.16
-  salomon_bottom_bar: ^3.3.1
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +81,49 @@ flutter:
   assets:
     - images/trashcan.png
     - images/plastic.png
+    - images/can.png
+    - images/vinyl.png
+    - images/playstore.png
+    - images/culture.png
+    - images/playstore1.png
+    - images/coin.png
+    - images/shinsegae.png
+    - images/first.png
+    - images/second.png
+    - images/third.png
+    - images/clean.png
+    - images/dirty.png
+    - images/nolabel.png
+    - images/triangle.png
+    - images/triangle1.png
+    - images/triangle2.png
+    - images/triangle3.png
+    - images/triangle4.png
+    - images/triangle5.png
+    - images/a1.png
+    - images/a2.png
+    - images/a3.png
+    - images/a4.png
+    - images/a5.png
+    - images/a6.png
+    - images/b1.png
+    - images/b2.png
+    - images/b3.png
+    - images/b4.png
+    - images/b5.png
+    - images/b6.png
+    - images/c1.png
+    - images/c2.png
+    - images/c3.png
+    - images/images/nonearth.png
+    - images/images/plastic.png
+    - images/images/splash.png
+    - images/images/trashcan.png
+    - images/images/realearth.png
+    - images/images/loging.png
+    - images/images/bluetooth.png
+    - images/images/kakao.png
+    - images/ddd.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
