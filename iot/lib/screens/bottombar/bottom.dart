@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iot/screens/bottombar/mileage.dart';
 import 'package:iot/screens/bottombar/trash.dart';
 import 'package:iot/screens/bottombar/user.dart';
+import 'package:iot/screens/throwaway.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class Bottom extends StatefulWidget {
@@ -16,7 +17,7 @@ class _BottomState extends State<Bottom> {
   var _currentIndex = 0;
 
   final List<Widget> _children = [
-    const Trash(),
+    const ThrowAway(),
     const Mileage(),
     const User(),
   ];
